@@ -1,0 +1,91 @@
+<div class="modal-create-activity">
+<div class="modal-header d-flex">
+  <div class="title w-100">
+    <h4>Criar Atividade</h4>
+  </div>
+  <button type="button" class="btn-close close" data-dismiss="modal"  (click)="activeModal.dismiss()">
+
+  </button>
+</div>
+
+<div class="modal-body d-flex justify-content-center">
+  <form class="d-flex flex-column align-items-center justify-content-between mt-2 mx-2 w-100" [formGroup]="formActivity" (submit)="formActivity.value.id == null ? save() : update()">
+    <div class="d-flex flex-column justify-content-center w-100">
+      <div class="d-flex flex-column">
+        
+        <div class="form-group mb-3">
+          <label for="exampleInputEmail1">Titulo</label>
+          <input type="text" formControlName="title" class="form-control" id="title"  placeholder="Título"> 
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="description">Descrição</label>
+          <input type="text" formControlName="description" class="form-control" id="description"  placeholder="Descrição"> 
+        </div>
+    
+        <div class="form-group mb-3">
+          <label for="estimatedTime">Tempo estimado</label>
+          <input type="number" formControlName="estimatedTime" class="form-control" id="estimatedTime"  placeholder="Descrição"> 
+        </div>
+<!--
+        <label for="statusActivity"> <strong>Status Atividade:</strong> </label>
+        <select id="statusActivity" class="form-control" name="statusActivity" formControlName="statusActivity" role="selectStatus" >
+          <option class="optionForm">Selecione Status</option>
+          <option *ngFor="let sa of statusActivity" [ngValue]="sa" class="optionForm">{{ sa.name }}</option>
+        </select> -->
+        <div class="form-group mb-3">
+          <label for="sectorActivity">Setor Atividade:</label> 
+          <select name="sectorActivity" formControlName="sectorActivity" role="selectSectorActivity" class="form-control">
+            <option disabled="true" class="optionForm">Selecione o setor da Atividade</option>
+            <option *ngFor="let sa of sectorActivity" [ngValue]="sa" class="optionForm">{{ sa.name }}</option>
+          </select>
+        </div>
+  
+        <div class="form-group mb-3">
+          <label for="tagsActivity"> Tag de priorização da Atividade:</label>
+          <select id="tagsActivity" class="form-control" name="tagsActivity" formControlName="tagsActivity" role="selectTagsActivity" >
+            <option class="optionForm">Selecione a tag de priorização da Atividade</option>
+            <option *ngFor="let ta of tagsActivity" [ngValue]="ta" class="optionForm">{{ ta.name }}</option>
+          </select>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="statusPriorityActivity"> <strong>Prioridade Atividade:</strong> </label>
+          <select id="statusPriorityActivity" class="form-control" name="statusPriorityActivity" formControlName="statusPriorityActivity" role="selectStatusPriorityActivity" >
+            <option class="optionForm">Selecione a prioridade da Atividade</option>
+            <option *ngFor="let spa of statusPriorityActivity" [ngValue]="spa" class="optionForm">{{ spa.name }}</option>
+          </select>
+        </div>
+ 
+        <div class="form-group activity-dependents">
+          <label for="">Selecione as atividades</label>
+          <ng-select
+          [items]="activitiesList"
+          formControlName="activityDependentIds"
+          [multiple]="true"
+          [(ngModel)]="owner"
+          class="form-control select-area-mult"
+          bindLabel="title"
+          bindValue= "id"
+          role="selectedActivities"
+          [searchable]="true"
+          [clearable]="true"
+          [compareWith]="compareFunction">
+          <ng-template class="testt" ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+              <div class="custom-checkbox">
+                <input [ngModelOptions]="{standalone: true}" id="item-{{index}}" type="checkbox" class="custom-control-input" [(ngModel)]="item$.selected"/>
+                <label for="custom-control-label">{{item?.id}} - {{item?.identifier}} - {{item?.title}}</label>
+              </div>
+              <hr class="custom-hr-input">
+          </ng-template>
+          </ng-select>
+        </div>
+      </div>
+    </div>
+    <div class="buttons mt-4">
+      <button type="button" class="btn btn-danger" (click)="activeModal.close(false)">Cancelar</button>
+      <button type="submit" class="btn btn-primary " [disabled]="formActivity.invalid || buttonDisabled">Salvar</button>
+    </div>
+  </form>
+</div>
+</div>

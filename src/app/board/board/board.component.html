@@ -1,0 +1,35 @@
+<div class="container-fluid container-board mt-5">
+  <div class="row">
+    <div class="tags">
+        <div class="tag-info "
+          *ngFor="let item of labelsColors"> 
+            <label  [ngStyle]="{color: item.color}" class="title-legend" for="">{{item.title}}
+              <div class="box" [ngStyle]="{background: item.color}"></div>
+            </label> 
+        </div>
+    </div> 
+  </div>
+
+  <div cdkDropListGroup class="row ">
+    <div class="columns-board">
+      <div class="column" *ngFor="let column of sectorActivity"> 
+          <h2 class="m-0">{{column.name}}</h2>  
+      
+        <div cdkDropList [cdkDropListData]="column.list" (cdkDropListDropped)="drop($event, column.id)" class="example-list" >
+     
+          <div cdkDrag [ngStyle]="{background: item.colorCard}"
+                class="card-activity"  *ngFor="let item of column.list"
+                [cdkDragDisabled]="item.isBlock">
+        
+              <app-board-item  [item]="item"
+              (emitDeleteCard)="onDeleteCard($event, column.id)"
+              (emitEditCard)="onEditCard($event, column.id)"
+              (emitViewDependenciesCard)="updateCard($event, column.id)"></app-board-item>
+          
+            </div>
+          
+        </div> 
+    </div>  
+  </div>  
+</div>
+
